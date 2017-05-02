@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mutlu Tekin</title>
+    <link rel="stylesheet" type="text/css"  href="../css/img.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" media="screen">
+    <link rel="stylesheet" type="text/css"  href="../css/yazi.css" media="screen"/>
+    <style type="text/css">
+
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div id="standart">
+        <a href="http://mutlutekin.com/index.html" class="standart"> Mutlu Tekin </a>
+
+      </div>
+      <div class="metin">
+
+        <h1 class="baslik">cryptsetup Ile Harici Disk Sifreleme</h1>
+        <span class="normal">
+        <p>Linux e kullandığının harici harddiskini şifrelemek için cryptsetup yazılımını kullanabilirsiniz.
+        Aşağıda cryptsetup kullanımını annlattım. Sifrelerinizi kaybederseniz dosyalarınaza bir daha ulaşamazsınız. Bunu dikkate almanızı öneririm<p>
+        </span>
+          <span class="normal">
+            <p>A) Disk bölümleri oluşturuyoruz.</p>
+            <p>a- Şifrelemek istediğimiz diskin adını öğrenelim.</p>
+            </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo fdisk <span style="color: #666666">-</span>l</pre></div>
+            <span class="normal">
+                <p>b- cfdisk ile diskmizi bölümlüyoruz.</p>
+                <p>x= Diskimizin harfi</p>
+                <p>y= Diskimizin bölüm numarası</p>
+                <p>1 tane linux ext4</p>
+                <p>1 tane ntfs olmak üzere iki bölüm oluşturuyoruz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cfdisk <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdx</pre></div>
+          <span class="normal">
+            <p>B) Dosya sistemlerini hazırlıyoruz.</p>
+            <p>*) Ntfs Bölümü :</p>
+            <p>mkfs aracı ile ntfs okrak seçtiğimiz bölümü biçimlendiriyoruz (Boşluğa yazacağı için diskinizin boyutuna göre uzun olacaktır. Benim 400G alanı biçimlendirmem 4 saat sürdü</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo mkfs<span style="color: #666666">.</span>ntfs <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+          <span class="normal">
+            <p>Bölümü kontrol etmek için /opt üzerine mount ediyoruz</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo mount <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy <span style="color: #666666">/</span>opt</pre></div>
+          <span class="normal">
+            <p>cat aracı kullanarak bölümü var olup olmadığını kontrol ediyoruz</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">cat <span style="color: #666666">/</span>etc<span style="color: #666666">/</span>mtab</pre></div>
+          <span class="normal">
+            <p>Kontrolumuz olumlu sonuç aldığımız takdirde, bölümü ayırırıyoruz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo umount <span style="color: #666666">/</span>opt</pre></div>
+          <span class="normal">
+            <p>*) LUKS Bölümü ve Şifreleme :</p>
+            <p>cryptsetup programını yüklüyoruz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo apt<span style="color: #666666">-</span>get install cryptsetup        UBUNTU<span style="color: #666666">/</span>DEBİAN
+sudo  dnf install cryptsetup           FEDORA<span style="color: #666666">/</span>RETHAT
+</pre></div>
+          <span class="normal">
+
+            <p>Diski şifrelemek için;</p>
+            <p>NOT:  bu bölümde bize şifremizi soracak dikkatlice şifrenizi yazın ve onaylayın . Burada yazdığınız şifre ana şifremiz olacaktır.</p>
+            <p>Onaylanamanızı isteyen soruyo büyük harflerler "YES" yazarsanız onaylamış olursunuz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup <span style="color: #666666">-</span>y <span style="color: #666666">-</span>v luskFormat <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+          <p></p>
+          <img src="../image/yazimage/sifreleme.png" alt="">
+          <p></p>
+          <span class="normal">
+            <p>Dosya sistemizi ext4 yapıyoruz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">mkfs<span style="color: #666666">.</span>ext4 <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+
+          <span class="normal">
+            <p>Diskimizin özelliklerine ve şifre statülerine bakmak için aşağıdaki komutu giriyoruz</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup luksDump  <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+          <span class="normal">
+            <p>Resimdeki gibi bir çıktı almanız gerekiyor.</p>
+            <img src="../image/yazimage/dump.png" alt="">
+            <p>Bu çıktıta gördüğümüz üzere 7 adet kapalı şifre slotumuz var istersek bunlara farklı şifreler atayabilir ve silebiliriz.</p>
+            <p><strong>Şifre Ekleme;</strong></p>
+            <p>Burada ilk belirtğimiz şifredeki gibi iki kere şifre girmemiz gerekiyor</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup luksAddKey <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+          <span class="normal">
+            <p><strong>Şifre Silme;</strong></p>
+            <p>Sileceğimiz şifreyi giriyoruz.</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup luksRemoveKey <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy</pre></div>
+          <span class="normal">
+            <p>Bölüme isim verme; bölümü ekinleştirmek için /dev/mapper altına isim belirtmeliyiz. Burada belirteceğiniz isim bu bölüm için yüm kullanacağını işlemlerde gereklidir</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup luksOpen  <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>sdxy bolum_ismi</pre></div>
+          <span class="normal">
+            <p>İsmi kontrol etmek için ;</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">ls <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>mapper</pre></div>
+          <p></p>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">ls <span style="color: #666666">-</span><span style="color: #008000">all</span> <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>mapper<span style="color: #666666">/</span>bolum_ismi</pre></div>
+          <span class="normal">
+            <p>Bölümüzün statusunu kontrol etmek için ;</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup <span style="color: #666666">-</span>v status bolum_ismi</pre></div>
+          <span class="normal">
+            <img src="../image/yazimage/status.png" alt="">
+            <p>Bölümüzü bağlamak için ;</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo mount  <span style="color: #666666">/</span>dev<span style="color: #666666">/</span>mapper<span style="color: #666666">/</span>bolum_ismi <span style="color: #666666">/</span>mnt</pre></div>
+          <span class="normal">
+            <p>Bölümüzü ayırmak için ;</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo umount <span style="color: #666666">/</span>mnt</pre></div>
+
+          <span class="normal">
+            <p>Bölümüzü kapatmak için ;</p>
+          </span>
+          <div style="background: #f3f3f3; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">sudo cryptsetup luksClose bolum ismi</pre></div>
+          <p></p>
+          <div id="standart">
+            <a href="https://mega.nz/#!yA0FgKjJ!8HuDFz7TN3MiN2q4g6NEt73BH54elw5yY2o4EdjrwAQ"class="standart"> Rehber İndir </a>
+          </div>
+
+
+      </div>
+      
+      <div class="imza">
+        <span id="imza">Mutlu Tekin © 2016</span>
+      </div>
+    </div>
+  </body>
+</html>

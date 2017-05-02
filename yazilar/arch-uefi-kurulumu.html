@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mutlu Tekin</title>
+    <link rel="stylesheet" type="text/css"  href="../css/img.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" media="screen">
+    <link rel="stylesheet" type="text/css"  href="../css/yazi.css" media="screen"/>
+  </head>
+  <body>
+    <div class="main">
+      <div id="standart">
+        <a href="http://mutlutekin.com/index.html"class="standart">Mutlu Tekin</a>
+      </div>
+        <div class="metin">
+          <center>
+          <img src="../image/yazimage/arch.png" alt="" style="height:150px;">
+          </center>
+          <h1 class="baslik">Arch Linux Kurulumu (UEFI)</h1>
+          <span class="normal">
+            <p>Anlatım sıfırdan ve tek başına arch kurulumunu anlatmak üzere yazılmıştır.
+              Bilgisayarı UEFI modda başlattıktan sonra aşağıdaki adımları uygulayabilirsiniz.
+            Disk Bölümlemisini 120G harddiskime göre ayarladım. Siz boyutları kendinize göre ayarlayabilirsiniz.</p>
+            <p>Türkçe Klavyeyi etkinleştiriyoruz. </p>
+            <pre style='color:#000000;background:#ffffff;'>loadkeys trq</pre>
+            <p>Wifiye bağlanıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>wifi-menu</pre>
+            </span>
+
+            <h3>Disk Bölümleme</h3>
+
+            <span class="normal">
+            <p>Kurulum yapacağımız diski tespit ediyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>fdisk -l</pre>
+            <p>Diski belirlerdikten sonra bölümleme işlemine geçiyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>parted /dev/sdX</pre>
+            <p>Diski GPT olarak biçimleyeceğimizi belirtiyoruz</p>
+            <pre style='color:#000000;background:#ffffff;'>mklabel gpt</pre>
+            <p>Uefi kurulum için Efi olarak kullanacağımız bölümü oluşturuyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkpart ESP fat32 1MiB 513MiB</pre>
+            <p>Oluşturduğumuz bölümü boot olarak belirliyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>set 1 boot on</pre>
+            <p>Kurulum yapılacak bölümü oluşturuyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkpart primary ext4 513MiB 20GiB</pre>
+            <p>Swap alanı oluşturuyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkpart primary linux-swap 20GiB 22GiB</pre>
+            <p>Home bölümünü oluşturuyoruz</p>
+            <pre style='color:#000000;background:#ffffff;'>mkpart primary ext4 22GiB 100%</pre>
+            <p>Oluşturduğumuz bölümleri yazdırıyoruz</p>
+            <pre style='color:#000000;background:#ffffff;'>print</pre>
+            <p>Parted den çıkıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>quit</pre>
+            </span>
+
+            <h3>Bölümleri Biçimlendirme</h3>
+
+            <span class="normal">
+            <p>Efi bölümünü fat32 olarak biçimlendiriyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkfs.vfat -F32 /dev/sdX1</pre>
+            <p>Kurulum bölümünü biçimlendiriyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkfs.ext4 /dev/sdX2</pre>
+            <p>Home bölümünü biçimlendiriyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkfs.ext4 /dev/sdX4</pre>
+            <p>Swap alanını biçimlendiriyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkswap /dev/sdX3</pre>
+            <p>Swap olarak atıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>swapon /dev/sdX3</pre>
+            </span>
+
+            <h3>Bölümleri Bağlama</h3>
+
+            <span class="normal">
+            <p>Kurulum bölümünü /mnt altına bağlıyoruz</p>
+            <pre style='color:#000000;background:#ffffff;'>mount /dev/sdX2 /mnt</pre>
+            <p>/mnt altına /boot oluşturuyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mkdir /mnt/boot</pre>
+            <p>Daha önce oluşturulan Efi bölümünü /mnt/boot altına bağlıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mount /dev/sdX1 /mnt/boot</pre>
+            <p>Home bölümü /mnt altına oluşturuyoruz</p>
+            <pre style='color:#000000;background:#ffffff;'>mkdir /mnt/home</pre>
+            <p>Home için oluşturulan bölümü //mnt/home altına bağlıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>mount /dev/sdX4 /mnt/home</pre>
+            </span>
+
+            <h3>Temel Sistem Kurulumu</h3>
+
+            <span class="normal">
+            <p>Temel sistem kurulumu için bu komutu veriyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>pacstrap -i /mnt base base-devel</pre>
+            <p>Bu bölüm biraz uzun sürecektir. İnternetten gerekli dosyaları indirip, temel kurulum yapılacaktır.</p>
+            <p>Diskleri fstab dosyasına yazıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>genfstab -U /mnt > /mnt/etc/fstab</pre>
+            <p>Doğruluğunu kontol ediyoruz. Aldığımız çıktı oluşturduğumuz disklerle örtüşüyorsa devam ediyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>cat /mnt/etc/fstab</pre>
+
+            </span>
+
+            <h3>Temel Sistem Yapılandırma</h3>
+
+            <span class="normal">
+              <p>chroot`a giriş yapıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>arch-chroot /mnt /bin/bash</pre>
+              <p>Sistem dilini ayarlıyoruz.</p>
+              <p>İngilizce için;</p>
+              <pre style='color:#000000;background:#ffffff;'>echo "en_US.UTF-8 UTF-8" > /etc/locale.gen</pre>
+              <p>Türkçe için;</p>
+              <pre style='color:#000000;background:#ffffff;'>echo "tr_TR.UTF-8 UTF-8" > /etc/locale.gen</pre>
+              <p>Yaptığımız işlemi kontrol ediyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>cat /etc/locale.gen</pre>
+              <p>Doğruluğunu teyit ettikten sonra ayarları uyguluyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>locale-gen</pre>
+              <p>Türkçe klawyeyi ayarlıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>echo "KEYMAP=trq" > /etc/vconsele.conf</pre>
+              <p>Yaptığımız işlemi kontrol ediyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>cat /etc/vconsele.conf</pre>
+              <p>Zaman dilimini ve saati ayarlıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>ln -sf /usr/share/zoneinfo/Turkey /etc/localtime</pre>
+              <pre style='color:#000000;background:#ffffff;'>hwclock --systohc --utc</pre>
+              <p>Bilgisayar adını belirliyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>echo "Bilgisayar-Adı" > /etc/hostname </pre>
+              <p>Root şifresini belirliyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>passwd</pre>
+              <p>Uefi için gerekli dosyaları indiriyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>pacman -S dosfstools</pre>
+              <p>İndirdiğimiz dosyaları kuruyoruz</p>
+              <pre style='color:#000000;background:#ffffff;'>bootctl install</pre>
+              <p>Systemd  Yapılandırma dosyasını düzenliyoruz</p>
+              <pre style='color:#000000;background:#ffffff;'>nano /boot/loader/entries/arch.conf</pre>
+              <p>Açılan dosyaya aşağıdaki verileri yazıyoruz. CTRL+O ile kaydedip CTRL+X ile çıkış yapıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>title Arch Linux <br>linux /vmlinuz-linux <br>initrd /initramfs-linux.img <br>options root=/dev/sda2 rw</pre>
+              <p>NOT: /dev/sda2 `yi değiştirmeyin !!!</p>
+              <p>Loader dosyasını yapılandıroyuz.</p>
+              <pre style='color:#000000;background:#ffffff;'>nano /boot/loader/loader.conf</pre>
+              <p>Açılan dosyaya aşağıdaki verileri yazıyoruz. CTRL+O ile kaydedip CTRL+X ile çıkış yapıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>#timeout 3 <br>default arch</pre>
+              <p>Wifi paketlerini kuruyoruz</p>
+              <pre style='color:#000000;background:#ffffff;'>pacman -S iw dialog wpa_actiond wpa_supplicant</pre>
+              <p>chrot ortamından çıkıyoruz</p>
+              <pre style='color:#000000;background:#ffffff;'>exit</pre>
+              <p>Bölümleri ayırıyoruz ve bilgisayarı kapatıyoruz.</p>
+              <pre style='color:#000000;background:#ffffff;'>umount -R /mnt</pre>
+              <pre style='color:#000000;background:#ffffff;'>shutdown now</pre>
+              <p>Bilgisayarı açmadan önce usb`yi çıkarmayı unutmayın. !!!</p>
+          </span>
+          <h3>Kurulum Sonrası Yapılandırma</h3>
+          <span class="normal">
+          <p>Sistem açıldıktan sonra kullanıcı adına "root" yazıyoruz ve daha önce oluşturduğumuz root şifresini giriyoruz.Wifi`ye bağlanıyoruz.</p>
+          <p>Xorg servisini kuruyoruz. </p>
+          <pre style='color:#000000;background:#ffffff;'>pacman -Syu xorg-server xorg-xinit xorg-utils xorg-server-utils</pre>
+          <p>Karşımıza 4 adet seçenek çıkacaktır. Amd ekran kartına sahipleri , intel ekran kartı sahipleri ve ekran kartı olmayanlar 1'i,6/7 serisine ait nvidia ekran kartları için 2`yi, 8/9/200/300/400/500/600 serisine sahip nvidia ekran karları için 3`ü, 800/900 serisine ait nvidia ekran karları için 4`ü seçiyoruz. </p>
+          <p>Ekran kartını yüklüyoruz.</p>
+          <p>Amd için;</p>
+          <pre style='color:#000000;background:#ffffff;'>sudo pacman -S xf86-video-ati ati-dri mesa-libgl mesa-vdpau</pre>
+          <p>İntel İçin;</p>
+          <pre style='color:#000000;background:#ffffff;'>sudo pacman -S xf86-video-intel libva-intel-driver</pre>
+          <p>6/7 serisine ait nvidia ekran kartları için;</p>
+          <pre style='color:#000000;background:#ffffff;'>sudo pacman -S nvidia-304XX</pre>
+          <p>8/9/200/300/400/500/600 serisine sahip nvidia ekran kartları için;</p>
+          <pre style='color:#000000;background:#ffffff;'>sudo pacman -S nvidia-340xx</pre>
+          <p>800/900 serisine ait nvidia ekran karları için;</p>
+          <pre style='color:#000000;background:#ffffff;'>sudo pacman -S nvidia</pre>
+          <p>Ses sürücüsü ve arşiv yazılımlarının kuruluumu</p>
+          <pre style='color:#000000;background:#ffffff;'>pacman -S alsa-lib alsa-utils gamin dbus p7zip zip unzip unrar</pre>
+          <p>Kullanıcı ekleme</p>
+          <pre style='color:#000000;background:#ffffff;'>useradd -m -G users,audio,video,wheel,storage,optical,power,network,log-s /bin/bash kullanıcı_adı</pre>
+          <p>Kullanıcı şifresi belirleme</p>
+          <pre style='color:#000000;background:#ffffff;'>passwd kullanıcı_adı</pre>
+          </span>
+
+          <h3>Masaüstü Kurulumu</h3>
+
+          <span class="normal">
+
+            <p>Masaüstümüzü kurulumu</p>
+            <p>Gnome için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S gnome gnome-extra</pre>
+            <p>Kde Plasma için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S plasma</pre>
+            <p>Mate için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S mate mate-extra</pre>
+            <p>Xfce için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S xfce4 xfce4-goodies</pre>
+            <p>Karşılama ekranı kurulumu</p>
+            <p>Gnome için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo systemctl enable gdm</pre>
+            <p>Kde plasma için;</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo systemctl enable sddm</pre>
+            <p>Xcfe ve mate için kendilerine ait açılış yöneticileri olmadığı için lightdm açılış yöneticisini kurup atamamız gerekli</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S lightdm lightdm-gtk-greeter</pre>
+            <pre style='color:#000000;background:#ffffff;'>sudo systemctl enanle lightdm </pre>
+            <p>Başlangıç için gerekli bir kaç önemli yazılımın kurulumu</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo pacman -S firefox xarchiver flashplugin gnome-mplayer</pre>
+            <p>Sudoers dosyasını yapılandırmak için sudoers dosyasını açıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo nano /etc/sudoers</pre>
+            <p>Dosya açıltıktan sonra dosya içerisinde;<br>"root ALL=(ALL) ALL" <br> yazan satırı bulup altına "kullanıcı_adı ALL=(ALL) ALL" satırını ekliyoruz. Görünün aşağıdaki gibi olmalıdır.</p>
+            <pre style='color:#000000;background:#ffffff;'>root ALL=(ALL) ALL <br>kullanıcı_adı ALL=(ALL) ALL</pre>
+            <p>CTRL-O ile kayıt edip CTRL-X ile çıkıyoruz.</p>
+            <p>Kurulumumuz tamamlandı. Aşağıdaki komut ile sistemizi yeniden başlatıyoruz.</p>
+            <pre style='color:#000000;background:#ffffff;'>sudo reboot -h now </pre>
+
+            <p>Her hangi bir sorun yaşayanlar bana mail adresimden ulaşabilirler.</p>
+
+          </span>
+
+        </div>
+        <center>
+        <div class="imza">
+          <span id="imza">Mutlu Tekin © 2016</span>
+        </div>
+    </div>
+  </body>
+</html>

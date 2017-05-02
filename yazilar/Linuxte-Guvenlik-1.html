@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mutlu Tekin</title>
+    <link rel="stylesheet" type="text/css"  href="../css/img.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" media="screen">
+    <link rel="stylesheet" type="text/css"  href="../css/yazi.css" media="screen"/>
+  </head>
+  <body>
+    <div class="main">
+      <div id="standart">
+        <a href="http://mutlutekin.com/index.html"class="standart">Mutlu Tekin</a>
+      </div>
+
+      <div class="metin">
+        <center><img src="../image/yazimage/lg1.png" alt="" style="height:150px;"></center>
+      <h1 class="baslik">Linux`te Güvenlik 1</h1>
+      <span class="normal">
+        <p>Bu yazı linux kullanıcılarının güvenliklerini artırmak için alabilecekleri tedbirleri anlatmak amacıyla hazırlanmıştır.</p>
+      <p>Yazıda açıklamalar için için bazı linux distrolarından örnekler geçecektir. Amacım hiç bir linux distrosunu karalamak değildir. Sadece dikkat çekmek amaçlı verilmiştir. </p> </span>
+        <center><h2>~ GNU/Linux Seçimi ~</h2></center>
+        <h3>Systemd</h3>
+        <span class="normal">
+          <p>Systemd bir çok GNU/linux tarafından kabul görülmekle birlikte kendinde tartışılan bir yazılımdır.
+          .Bir çok işi kendisi yapar, hatta ağ yönetim disk bağlama vs herşey otomatik açık gereğinden fazla işi sahiplenir.
+             Systemd de belirli bir backdoor görülmemektedir. Fakat bu kadar çok işi sahiplenen ve kullanıcının müdahelesine izin vermeyen bir yazılımın backdoor bulundurma ihtimali gözardı edilemez.</p>
+
+             <p>Benim gibi güvenlik yönünden kırıklığı olanlar systemd nin Redhat tarafından popülerleştirildiğini ve Rethat`ın bir numaralı müşterisinin amerikan ulusal güvenlik birimi olduğunu göz ardı etmeyeceklerdir.
+             Systemd yi kullanın yada kullanmayın backdoor bulunma olasılığında sisteme vereceği zararları kabul etmek zorundadır.
+             Systemd kullanmayan linux distrolarını görmek için <a href="http://without-systemd.org/wiki/index.php/Main_Page">buraya bakabilir.</a>
+          </p>
+          </span>
+          <h3>Gnu Yazılım Deposu</h3>
+          <span class="normal">
+          <p>Kullandığımız linux distrosunun Gnu felsefesine ne kadar uyduğuna dikkat etmemiz gerekir. Bunu belirlerken benim belirlediğim 5 temel kriter var. Siz bunları çoğaltabilirsiniz.</p>
+          <ol>
+            <li>Ana deposunda kapalı yazılım bulurma durumu.</li>
+            <li>Ana deponun stabilite seviyesi</li>
+            <li>Geliştirici ekibin güvenlik açıklarına verdiği önem</li>
+            <li>Ne kadar Third Party Software (Bağımsız Şirket Yazılımı) bulundurduğu.</li>
+            <li>Bağımlılıklar</li>
+          </ol>
+          <p>Gnu depoya önem veren kullanıcalar için Debian yerine Devuan ve Gnewsense, Arch yerine Parabola distrolarını tavsiye edebilirim.</p>
+          </span>
+
+          <h3>Kararlılık ve Güncellik</h3>
+
+          <span class="normal">
+            <p>GNU/Linux Distrosu seçiminde azami dikkat edilmesi gereken bir noktayı teşkil eder. GNU/Linux distrosu ne kadar stabil ise sisteminizin güvenliği o derecede artar diyebiliriz.
+            Stabil bir sistemin güvenlik bakımından denetlenmiş olması, açık verme ihtimali azaltır. Kararlı bir distroyu belirlerken ; kernelin, masaüstlerinin, kullanılan paket sisteminin, barındırılan yazılımların stabilitesi ve uyumluluk sorunları öncelikle dikkate alın önemlidir..</p>
+            <p>Yazılım deposunun barındırdığı yazılımların güncel olması hem kullanım açısından hemde güvenlik açısından size katkı sağlayacaktır. Çünkü gelen güncellemeler ile birlikte açıklarınız kapatılır ve kararlılık seviyeniz artırılır. Burada dikkat edilmesi gereken nokta ise tek başına güncellik kararlılık değildir.</p>
+            <p>Buna örnek olarak uzun süre tecrübe ettiğim fedora dağıtımını verebiliriz. Fedora GNU/Linux distrolar arasında en fazla güncel yazılım bulunduran distrolardan birisi. O kadar çok güncel yazılım ekleniyor ki bunların tamamı kontrol edilmeden depoya ekleniyor. Buda beraberinde kararlılık sorununu getiriyor.</p>
+
+
+
+          </span>
+
+          <h3>Sponsorları</h3>
+          <span class="normal">
+            <p>
+            GNU/Linux distrosuna destek veren şirketin güvenilirliğini, kullanıcı haklarına saygı gösterme durumunu ve Gnu felsefesine bakış açısını araştırmanız gerekir. Şirketlerin sponsor olma nedenlerini, GNU/Linux`e ne kattıklarına ve nelere mudahale ettiklerine dikkat etmek gerekir.</p>
+            <p>Örnek vermek gerekirse Ubuntu`nun geliştiricisi konumundaki Cannonical şirketi kullanıcıların arama verilerini Amazon şirketine gönderen bir yazılım içeriyordu. Ubuntu 2016 sürümünde bu özellik kapatıldı.
+             Burada dikkat çekilmesi gereken nokta ne Ubuntu ne sponsoru Cannonical şirketi, kullanıcılar durumu fark edene kadar bu veri gönderimi
+              hakkında herhangi bir açıklamaya gereksinim duymamışlardı. Kullanıcılarına karşı objektif olmayan dağıtımlar seçerken birkez daha düşünmek gerekir.Sponsorların GNU/Linux`e katkılarını taktir etmek ile beraber aldıklarınıda görmek gerekir.
+          </p>
+          </span>
+          <h3>Root Yetkileri ve Şifre Güvenliği</h3>
+          <span>
+            <p>Kullanılan distronun root yetkisini kullanma politikasına dikkat edilmelidir. Hangi işlemlerde root yetkisi istediği hangi işlemlerde root yetkisene ihtiyaç duymadığına dikkat edilmelidir.
+               Çünkü gelecekte linux`ün virüslere karşı en büyük güvenlik duvarlrından birini root yetkisi belirleyecektir.
+                Sisteminize bir virüs bulassa ve sızılsa dahi root yetkisi doğal bir güvenlik duvarı oluşturacaktır.</p>
+            <p>Root yekisinin güvenliği ise şifre güvenli ile sağlanır. Kullandığınız dağıtımın şifre koruma güvenliği ve şifre kurtarma protokollerini dikkatle incelemeniz gerekir.</p>
+
+          </span>
+          <h3>Öğrenme</h3>
+          <span class="normal">
+            <p>Hack`te altın bir kural vardır; "Bilmediğin sisteme giremezsin.". Bundan yola çıkarakta bilmediğin sistemin güvenliğini sağlayamazsın diyebiliriz.
+               GNU/Linux`ü öğrenin elinizden geldiğince öğrenmeye çalışın. GNU/Linux öğrenmek, onun üzerinde hakimeyet kurmanızı sağlar.Hakimiyet kurmanız ise daha güvenli hale getirebilmenize olanak verir. Bir GNU/linux geliştirici ekibine dahil olun elinizden geldiğince birşeyler katın.</p>
+            <p> Grafiker dahi olsanız yapın. Zira grafiker olarak çizdiğiniz tasarımlar ekibinizin moralini ve verimini artırır.
+              Buda size daha iyi bir linux yapmalarına katkı sağlar.</p>
+              <p>GNU/Linux geliştirici ekine dahil olmak isteyenler <a href="http://mutlutekin.com/yazilar/gelistermekicinlinux.html">Gelişmek ve Geliştirmek İçin Linux</a> adlı yazımı okuyabilirler.</p>
+          </span>
+
+         </div>
+         <div class="imza">
+           <span id="imza">Mutlu Tekin © 2016</span>
+         </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mutlu Tekin</title>
+    <link rel="stylesheet" type="text/css"  href="../css/img.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" media="screen">
+    <link rel="stylesheet" type="text/css"  href="../css/yazi.css" media="screen"/>
+  </head>
+  <body>
+    <div class="main">
+      <div id="standart">
+        <a href="http://mutlutekin.com/index.html"class="standart">Mutlu Tekin</a>
+      </div>
+
+      <div class="metin">
+      <h1 class="baslik">Luhn Algoritması</h1>
+      <span class="normal">
+      <p>Lunh algoritması kredi kartı numaralarını oluşturmajk ve doğulamak için</p>
+      <p>kullanılan bir algoritmadır. 1954 yılında Hans Peter Luhn ve IBM tarafından</p>
+      <p>geliştirilmiştir. Diğer bir ismi ile "Mod Check".</p>
+      <p>Kullamı ve uygulaması şu şekildedir;</p>
+      <p>1) Çift hanelerdeki rakamlar toplanır.</p>
+      <p>2) Tek hanelerdeki rakamlar 2 ile çarpılır ve elde edilen sayıların basamakları toplanır</p>
+      <p>3) Hesaplanan iki toplam sonucu birbirleriyle toplanır.</p>
+      <p>4) Elde edilen sonuç Mod10 ise yani onun katı ise kart numarası geçerlidir.</p>
+      <p>NOT: Kart numaraları 16 hanelidir.</p>
+      <p>Daha iyi açıklamak gerekirse bu resim yardımcı olacaktır.</p></p></p>
+      <img src="../image/luhn.png" alt="" />
+      <p>Ben bu algoritmayı python ile kodlayarak aşağıdaki gibi bir Python programı yazdım inceleyebilir.</p></p>
+      <p>kendi algoritmanızı yazabilirsiniz. Faydalı olması dileğiyle...</p>
+      </span>
+
+      </div>
+      <div style="background: #f5f5f5; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;Mutlutekin / mutlutekin.com&quot;</span>)
+kart<span style="color: #666666">=</span><span style="color: #008000">input</span>(<span style="color: #BA2121">&quot;Kredi kartı no giriniz : &quot;</span>)
+citf_hane<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">1</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">3</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">5</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">7</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">9</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">11</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">13</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(kart[<span style="color: #666666">15</span>]))
+<span style="color: #008000; font-weight: bold">print</span> (citf_hane)
+b<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">0</span>])<span style="color: #666666">*2</span>)
+c<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">2</span>])<span style="color: #666666">*2</span>)
+d<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">4</span>])<span style="color: #666666">*2</span>)
+e<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">6</span>])<span style="color: #666666">*2</span>)
+f<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">8</span>])<span style="color: #666666">*2</span>)
+g<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">10</span>])<span style="color: #666666">*2</span>)
+i<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">12</span>])<span style="color: #666666">*2</span>)
+j<span style="color: #666666">=</span>(<span style="color: #008000">int</span>(kart[<span style="color: #666666">14</span>])<span style="color: #666666">*2</span>)
+a<span style="color: #666666">=</span>(b,c,d,e,f,g,i,j)
+ikili<span style="color: #666666">=0</span>
+tekli<span style="color: #666666">=0</span>
+<span style="color: #008000; font-weight: bold">for</span> say <span style="color: #AA22FF; font-weight: bold">in</span> a:
+  <span style="color: #008000; font-weight: bold">if</span> say <span style="color: #666666">&gt;</span> <span style="color: #666666">9</span>:
+      say<span style="color: #666666">=</span><span style="color: #008000">str</span>(say)
+      top<span style="color: #666666">=</span><span style="color: #008000">int</span>(say[<span style="color: #666666">0</span>])<span style="color: #666666">+</span><span style="color: #008000">int</span>(say[<span style="color: #666666">1</span>])
+      ikili<span style="color: #666666">=</span>ikili<span style="color: #666666">+</span>top
+  <span style="color: #008000; font-weight: bold">elif</span> say <span style="color: #666666">&lt;</span> <span style="color: #666666">10</span>:
+      say<span style="color: #666666">=</span><span style="color: #008000">str</span>(say)
+      top2<span style="color: #666666">=</span><span style="color: #008000">int</span>(say[<span style="color: #666666">0</span>])
+      tekli<span style="color: #666666">=</span>tekli<span style="color: #666666">+</span>top2
+
+
+
+tekhane<span style="color: #666666">=</span>tekli<span style="color: #666666">+</span>ikili
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;Çift Hane Kontrolu : {}&quot;</span><span style="color: #666666">.</span>format(citf_hane))
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;Tek Hane Kontrolu : {}&quot;</span><span style="color: #666666">.</span>format(tekhane))
+
+mod10<span style="color: #666666">=</span>citf_hane<span style="color: #666666">+</span>tekhane
+<span style="color: #008000; font-weight: bold">if</span> mod10<span style="color: #666666">%10==0</span>:
+  <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;mod10 kontrolü : kartınız geçerli&quot;</span>)
+<span style="color: #008000; font-weight: bold">elif</span> mod10<span style="color: #666666">%10!=0</span>:
+  <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;mod10 kontrolü : kartınız geçerli değil&quot;</span>)
+</pre></td></tr></table></div>
+
+    </div>
+
+
+<div class="imza">
+  <span id="imza">Mutlu Tekin © 2016</span>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,158 @@
+@font-face {
+    font-family: 'TitilliumWeb';
+    src: url('../font/TitilliumWeb-Regular.ttf');
+    src:
+         url('../font/TitilliumWeb-Regular.ttf') format('truetype'),
+    src: url('../font/TitilliumWeb-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+     font-family: 'TitilliumWeb';
+
+     font-family: 'Phenomena';
+    src: url('../font/Phenomena-Regular.otf');
+    src:
+         url('../font/Phenomena-Regular.otf') format('opentype'),
+    src: url('../font/Phenomena-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+     font-family: 'Phenomena';
+
+}
+
+
+#name{
+  color: #263238;
+  font-family: 'Phenomena';
+  font-size: 60px;
+  border-radius: 5px;
+  text-align: left;
+  word-spacing: 10px;
+  letter-spacing:3px;
+
+
+
+}
+#acikla{
+
+  font-family: 'Phenomena';
+
+  color: #263238;
+  font-size: 22px;
+
+
+
+}
+.usthr{
+  color:  #ab294e;
+  background-color: #ab294e;
+  height: 13px;
+
+}
+#imza{
+  text-align: center;
+  color:  #263238;
+  font-family: 'Phenomena';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+  font-size: 24px;
+  padding-top: 150;
+
+}
+.konulink{
+
+ font-family: 'Phenomena';
+
+  text-decoration:none;
+  text-align: right;
+  letter-spacing:1px;
+  color:  #ab294e;
+  float: left;
+  font-size: 24px;
+
+
+}
+.ytarih{
+
+  font-family: 'Phenomena';
+
+  letter-spacing:1px;
+  color:#263238;
+    font-size: 24px;
+  float: right;
+
+
+}
+.standart{
+  background-color: #ab294e;
+  color: white;
+  font-family: 'Phenomena';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+  text-align: center;
+  text-decoration:none;
+  font-size: 30px;
+      text-transform: uppercase;
+    color: #FDFDFD;
+    padding: 0.1875rem 1.125rem;
+    background:  #ab294e;
+}
+.normal{
+
+color:#263238;
+font-family: 'TitilliumWeb';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+}
+.baslik{
+  color:  #ab294e;
+  font-family: 'Phenomena';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-size: 25px;
+
+
+}
+h3{
+  color:#ab294e;
+  font-family: 'Phenomena';
+}
+h2{
+  color:#ab294e;
+  font-family: 'Phenomena';
+}
